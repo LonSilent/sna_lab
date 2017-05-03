@@ -5,6 +5,7 @@
   <!-- <base href="/"> -->
   <meta name="name" content="content">
   <meta charset="utf-8">
+  <title>sna_lab</title>
   <!--Import Google Icon Font-->
   <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <!--Import materialize.css-->
@@ -65,116 +66,63 @@
       </div>
     </nav>
   </div>
-  <div style="padding:10px;">
+  <div id="sna_app" style="background: #ECEFF1">
+<!--    <div style="padding:10px;">
   </div>
-  <div class="row">
-    <!--     <ul class="side-nav fixed hide-on-med-and-down" style="margin-top: 65px; width: 16.6666666667%;">
-      <li><a href="#!">First Sidebar Link</a></li>
-      <li><a href="#!">Second Sidebar Link</a></li>
-    </ul>
- -->
-    <div class="col m1">
-    </div>
-    <div class="col s12 m6">
-      <div class="row">
-        <div class="col s12">
-          <div class="card">
-            <div class="card-image">
-              <img src="http://lorempixel.com/800/400/food/1">
-              <span class="card-title">Card Title</span>
-            </div>
-            <div class="card-content">
-              <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
-            </div>
-            <div class="card-action">
-              <a href="#">Like</a>
-              <a href="#">Comment</a>
-            </div>
-          </div>
-        </div>
+ --><!--     <router-link to="/foo">Go to Foo</router-link>
+    <router-link to="/bar">Go to Bar</router-link>
+    <router-view></router-view>
+ -->    <div class="row" style="padding-top: 20px;">
+      <div class="col m1">
       </div>
-      <div class="row">
-        <div class="col s12">
-          <div class="card">
-            <div class="card-image">
-              <img src="http://lorempixel.com/800/400/food/2">
-              <span class="card-title">Card Title</span>
-            </div>
-            <div class="card-content">
-              <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
-            </div>
-            <div class="card-action">
-              <a href="#">Like</a>
-              <a href="#">Comment</a>
+      <div class="col s12 m6">
+        <template v-for="(card, index) in foodCards" class="row">
+          <div class="col s12">
+            <div class="card">
+              <div class="card-image">
+                <img :src="card.img">
+                <span class="card-title">{{card.title}}</span>
+              </div>
+              <div class="card-content">
+                <p>{{card.content}}</p>
+              </div>
+              <div class="card-action">
+                <template v-if="card.unliked">
+                  <a v-on:click="card.unliked = false">Like<a>
+                </template>
+                 <a v-else v-on:click="like(index)" >Unlike</a>
+                <a>Comment</a>
+              </div>
             </div>
           </div>
-        </div>
+        </template>
       </div>
-      <div class="row">
-        <div class="col s12">
-          <div class="card">
-            <div class="card-image">
-              <img src="http://lorempixel.com/800/400/food/3">
-              <span class="card-title">Card Title</span>
-            </div>
-            <div class="card-content">
-              <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
-            </div>
-            <div class="card-action">
-              <a href="#">Like</a>
-              <a href="#">Comment</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col m4 hide-on-med-and-down">
-      <div class="row">
-        <div class="col s12">
-          <div class="card" style="padding: 10px 0;">
-          <div class="card-content">
-            <span class="card-title">Food Maker</span>
-              
-          </div>
-            <div class="row">
-              <div class="col s4">
-                <img class="circle responsive-img center" src="http://lorempixel.com/50/50/people/1">
-                <span class="center">Anna</span>
+      <div class="col m4 hide-on-med-and-down">
+        <div class="row">
+          <div class="col s12">
+            <div class="card" style="padding: 10px 0;">
+              <div class="card-content">
+                <span class="card-title">Food Maker</span>
               </div>
-              <div class="col s4">
-                <img class="circle responsive-img center" src="http://lorempixel.com/50/50/people/2">
-                <span class="center">Anna</span>
-              </div>
-              <div class="col s4">
-                <img class="circle responsive-img center" src="http://lorempixel.com/50/50/people/3">
-                <span class="center">Anna</span>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col s4">
-                <img class="circle responsive-img center" src="http://lorempixel.com/50/50/people/4">
-                <span class="center">Anna</span>
-              </div>
-              <div class="col s4">
-                <img class="circle responsive-img center" src="http://lorempixel.com/50/50/people/5">
-                <span class="center">Anna</span>
-              </div>
-              <div class="col s4">
-                <img class="circle responsive-img center" src="http://lorempixel.com/50/50/people/6">
-                <span class="center">Anna</span>
+              <div class="row">
+                <div v-for="person in people" class="col s4">
+                  <img class="circle responsive-img center" :src="person.img">
+                  <span class="center">{{person.name}}</span>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="col m1">
-        
+      <div class="col m1">
+      </div>
     </div>
   </div>
-  <!--Import jQuery before materialize.js-->
-  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="./node_modules/vue/dist/vue.min.js"></script>
+  <script src="./node_modules/vue-router/dist/vue-router.min.js"></script>
   <script type="text/javascript" src="./node_modules/materialize-css/dist/js/materialize.min.js"></script>
+  <script src="./main.js"></script>
 </body>
 
 </html>
